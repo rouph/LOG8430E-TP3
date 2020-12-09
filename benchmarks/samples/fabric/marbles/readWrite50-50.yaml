@@ -1,0 +1,37 @@
+test:
+  workers:
+    type: local
+    number: 5
+  rounds:
+    - label: init
+      txNumber: 2000
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 1220
+      workload:
+        module: benchmarks/samples/fabric/marbles/init.js
+    - label: readWrite50-50
+      txNumber: 2000
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 343
+      workload:
+        module: benchmarks/samples/fabric/marbles/readWrite50-50.js
+monitors:
+  resource:
+  - module: docker
+    options:
+      interval: 3
+      containers:
+      - peer0.org2.example.com
+      - peer0.org1.example.com
+      - orderer0.example.com
+      - couchdb.peer0.org1.example.com
+      - ca.org1.example.com
+      - ca.org2.example.com
+      - couchdb.peer0.org2.example.com
+
+
+
